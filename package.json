@@ -1,0 +1,38 @@
+{
+  "name": "d3-collection",
+  "version": "0.1.0",
+  "description": "Handy data structures for elements keyed by string.",
+  "keywords": [
+    "d3",
+    "nest",
+    "data",
+    "map",
+    "set",
+    "object",
+    "collection"
+  ],
+  "homepage": "https://github.com/d3/d3-collection",
+  "license": "BSD-3-Clause",
+  "author": {
+    "name": "Mike Bostock",
+    "url": "http://bost.ocks.org/mike"
+  },
+  "main": "build/d3-collection.js",
+  "jsnext:main": "index",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/d3/d3-collection.git"
+  },
+  "scripts": {
+    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3-collection -n d3_collection -o build/d3-collection.js -- build/bundle.js",
+    "test": "faucet `find test -name '*-test.js'`",
+    "prepublish": "npm run test && uglifyjs build/d3-collection.js -c -m -o build/d3-collection.min.js && rm -f build/d3-collection.zip && zip -j build/d3-collection.zip -- LICENSE README.md build/d3-collection.js build/d3-collection.min.js"
+  },
+  "devDependencies": {
+    "d3-array": "~0.7.0",
+    "faucet": "0.0",
+    "rollup": "0.20.5",
+    "tape": "4",
+    "uglify-js": "2"
+  }
+}
