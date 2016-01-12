@@ -61,7 +61,7 @@ function map(object, f) {
         n = object.length,
         o;
 
-    if (arguments.length === 1) while (++i < n) map.set(i, object[i]);
+    if (f == null) while (++i < n) map.set(i, object[i]);
     else while (++i < n) map.set(f(o = object[i], i, object), o);
   }
 
