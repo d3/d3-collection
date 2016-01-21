@@ -61,7 +61,7 @@ export default function() {
     sortValues: function(order) { sortValues = order; return nest; },
     rollup: function(f) { rollup = f; return nest; }
   };
-};
+}
 
 function createObject() {
   return {};

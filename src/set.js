@@ -27,9 +27,9 @@ function set(object, f) {
 
   // Otherwise, assume it’s an array.
   else if (object) {
-    var i = -1, n = object.length, o;
+    var i = -1, n = object.length;
     if (f == null) while (++i < n) set.add(object[i]);
-    else while (++i < n) set.add(f(o = object[i], i, object));
+    else while (++i < n) set.add(f(object[i], i, object));
   }
 
   return set;
