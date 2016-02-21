@@ -5,6 +5,7 @@ function Set() {}
 var proto = map.prototype;
 
 Set.prototype = set.prototype = {
+  constructor: Set,
   has: proto.has,
   add: function(value) {
     value += "";

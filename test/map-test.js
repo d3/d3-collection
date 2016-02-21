@@ -4,6 +4,7 @@ var tape = require("tape"),
 tape("map() returns an empty map", function(test) {
   var m = collection.map();
   test.equal(m instanceof collection.map, true);
+  test.equal(m.constructor.name, "Map");
   test.deepEqual(m.keys(), []);
   test.end();
 });

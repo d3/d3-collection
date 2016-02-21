@@ -5,6 +5,7 @@ var tape = require("tape"),
 tape("set() returns an empty set", function(test) {
   var s = collection.set();
   test.equal(s instanceof collection.set, true);
+  test.equal(s.constructor.name, "Set");
   test.deepEqual(s.values(), []);
   test.end();
 });

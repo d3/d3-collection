@@ -3,6 +3,7 @@ export var prefix = "$";
 function Map() {}
 
 Map.prototype = map.prototype = {
+  constructor: Map,
   has: function(key) {
     return (prefix + key) in this;
   },
