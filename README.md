@@ -232,7 +232,7 @@ Registers a new key *function*. The key function will be invoked for each elemen
 
 Sorts key values for the [current key](#nest_key) using the specified *comparator*, such as [ascending](https://github.com/d3/d3-array#ascending) or [descending](https://github.com/d3/d3-array#descending). If no comparator is specified for the current key, the order in which keys will be returned is undefined. Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
 
-For example, to sort year in ascending order, followed by variety in descending order:
+For example, to sort years in ascending order and varieties in descending order:
 
 ```js
 var entries = d3.nest()
