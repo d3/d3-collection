@@ -226,22 +226,24 @@ Creates a new nest operator. The set of keys is initially empty. If the [map](#n
 
 <a name="nest_key" href="#nest_key">#</a> <i>nest</i>.<b>key</b>(<i>function</i>)
 
-Registers a new key *function*. The key function will be invoked for each element in the input array, and must return a string identifier that is used to assign the element to its group. Most often, the function is implemented as a simple accessor, such as the year and variety accessors in the example above. The function is _not_ passed the input array index. Each time a key is registered, it is pushed onto the end of an internal keys array, and the resulting map or entries will have an additional hierarchy level. There is not currently a facility to remove or query the registered keys. The most-recently registered key is referred to as the current key in subsequent methods.
+Registers a new key *function*. The key function will be invoked for each element in the input array, and must return a string identifier that is used to assign the element to its group. Most often, the function is implemented as a simple accessor, such as the year and variety accessors in the example above. The function is _not_ passed the input array index. Each time a key is registered, it is pushed onto the end of an internal keys array, and the resulting map or entries will have an additional hierarchy level. There is not currently a facility to remove or query the registered keys.
 
 <a name="nest_sortKeys" href="#nest_sortKeys">#</a> <i>nest</i>.<b>sortKeys</b>(<i>comparator</i>)
 
-Sorts key values for the current key using the specified *comparator*, such as [descending](https://github.com/d3/d3-array#descending). If no comparator is specified for the current key, the order in which keys will be returned is undefined. Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
+Sorts key values for the [current key](#nest_key) using the specified *comparator*, such as [ascending](https://github.com/d3/d3-array#ascending) or [descending](https://github.com/d3/d3-array#descending). If no comparator is specified for the current key, the order in which keys will be returned is undefined. Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
+
+For example, to sort year in ascending order, followed by variety in descending order:
 
 ```js
 var entries = d3.nest()
-    .key(function(d) { return d.year; })
-    .sortKeys(d3.ascending)
+    .key(function(d) { return d.year; }).sortKeys(d3.ascending)
+    .key(function(d) { return d.variety; }).sortKeys(d3.descending)
     .entries(yields);
 ```
 
 <a name="nest_sortValues" href="#nest_sortValues">#</a> <i>nest</i>.<b>sortValues</b>(<i>comparator</i>)
 
-Sorts leaf elements using the specified *comparator*, such as [descending](https://github.com/d3/d3-array#descending). This is roughly equivalent to sorting the input array before applying the nest operator; however it is typically more efficient as the size of each group is smaller. If no value comparator is specified, elements will be returned in the order they appeared in the input array. This applies to both the map and entries operators.
+Sorts leaf elements using the specified *comparator*, such as [ascending](https://github.com/d3/d3-array#ascending) or [descending](https://github.com/d3/d3-array#descending). This is roughly equivalent to sorting the input array before applying the nest operator; however it is typically more efficient as the size of each group is smaller. If no value comparator is specified, elements will be returned in the order they appeared in the input array. This applies to both the map and entries operators.
 
 <a name="nest_rollup" href="#nest_rollup">#</a> <i>nest</i>.<b>rollup</b>(<i>function</i>)
 
