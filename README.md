@@ -230,9 +230,7 @@ Registers a new key *function*. The key function will be invoked for each elemen
 
 <a name="nest_sortKeys" href="#nest_sortKeys">#</a> <i>nest</i>.<b>sortKeys</b>(<i>comparator</i>)
 
-Sorts key values for the [current key](#nest_key) using the specified *comparator*, such as [ascending](https://github.com/d3/d3-array#ascending) or [descending](https://github.com/d3/d3-array#descending). If no comparator is specified for the current key, the order in which keys will be returned is undefined. Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
-
-For example, to sort years in ascending order and varieties in descending order:
+Sorts key values for the [current key](#nest_key) using the specified *comparator*, such as [ascending](https://github.com/d3/d3-array#ascending) or [descending](https://github.com/d3/d3-array#descending). If no comparator is specified for the current key, the order in which keys will be returned is undefined. For example, to sort years in ascending order and varieties in descending order:
 
 ```js
 var entries = d3.nest()
@@ -240,6 +238,8 @@ var entries = d3.nest()
     .key(function(d) { return d.variety; }).sortKeys(d3.descending)
     .entries(yields);
 ```
+
+Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
 
 <a name="nest_sortValues" href="#nest_sortValues">#</a> <i>nest</i>.<b>sortValues</b>(<i>comparator</i>)
 
