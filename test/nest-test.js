@@ -98,7 +98,7 @@ tape("nest.key(key).rollup(rollup).entries(array) aggregates values per key usin
   var a = {foo: 1},
       b = {foo: 1},
       c = {foo: 2};
-  test.deepEqual(collection.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).entries([a, b, c]), [{key: "1", values: 2}, {key: "2", values: 1}]);
+  test.deepEqual(collection.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).entries([a, b, c]), [{key: "1", value: 2}, {key: "2", value: 1}]);
   test.end();
 });
 
