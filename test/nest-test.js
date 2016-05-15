@@ -30,8 +30,8 @@ tape("nest.key(key).entries(array) returns entries for each distinct key, with v
       a = {foo: 1},
       b = {foo: 1},
       c = {foo: 2};
-  test.deepEqual(nest.entries([c, a, b, c]), [{key: "1", values: [a, b]}, {key: "2", values: [c, c]}]);
-  test.deepEqual(nest.entries([c, b, a, c]), [{key: "1", values: [b, a]}, {key: "2", values: [c, c]}]);
+  test.deepEqual(nest.entries([c, a, b, c]), [{key: "1", children: [a, b]}, {key: "2", children: [c, c]}]);
+  test.deepEqual(nest.entries([c, b, a, c]), [{key: "1", children: [b, a]}, {key: "2", children: [c, c]}]);
   test.end();
 });
 
@@ -39,7 +39,7 @@ tape("nest.key(key) coerces key values to strings", function(test) {
   var nest = collection.nest().key(function(d) { return d.number ? 1 : "1"; }).sortKeys(array.ascending),
       a = {number: true},
       b = {number: false};
-  test.deepEqual(nest.entries([a, b]), [{key: "1", values: [a, b]}]);
+  test.deepEqual(nest.entries([a, b]), [{key: "1", children: [a, b]}]);
   test.end();
 });
 
@@ -51,8 +51,8 @@ tape("nest.key(key1).key(key2).entries(array) returns entries for each distinct 
       d = {foo: 1, bar: "b"},
       e = {foo: 1, bar: "b"},
       f = {foo: 2, bar: "b"};
-  test.deepEqual(nest.entries([a, b, c, d, e, f]), [{key: "1", values: [{key: "a", values: [a, b]}, {key: "b", values: [d, e]}]}, {key: "2", values: [{key: "a", values: [c]}, {key: "b", values: [f]}]}]);
-  test.deepEqual(nest.entries([f, e, d, c, b, a]), [{key: "1", values: [{key: "a", values: [b, a]}, {key: "b", values: [e, d]}]}, {key: "2", values: [{key: "a", values: [c]}, {key: "b", values: [f]}]}]);
+  test.deepEqual(nest.entries([a, b, c, d, e, f]), [{key: "1", children: [{key: "a", children: [a, b]}, {key: "b", children: [d, e]}]}, {key: "2", children: [{key: "a", children: [c]}, {key: "b", children: [f]}]}]);
+  test.deepEqual(nest.entries([f, e, d, c, b, a]), [{key: "1", children: [{key: "a", children: [b, a]}, {key: "b", children: [e, d]}]}, {key: "2", children: [{key: "a", children: [c]}, {key: "b", children: [f]}]}]);
   test.end();
 });
 
@@ -61,8 +61,8 @@ tape("nest.key(key).sortKeys(order).entries(array) sorts entries by key using th
       a = {foo: 1},
       b = {foo: 1},
       c = {foo: 2};
-  test.deepEqual(nest.entries([c, a, b, c]), [{key: "2", values: [c, c]}, {key: "1", values: [a, b]}]);
-  test.deepEqual(nest.entries([c, b, a, c]), [{key: "2", values: [c, c]}, {key: "1", values: [b, a]}]);
+  test.deepEqual(nest.entries([c, a, b, c]), [{key: "2", children: [c, c]}, {key: "1", children: [a, b]}]);
+  test.deepEqual(nest.entries([c, b, a, c]), [{key: "2", children: [c, c]}, {key: "1", children: [b, a]}]);
   test.end();
 });
 
@@ -74,8 +74,8 @@ tape("nest.key(key1).sortKeys(order1).key(key2).sortKeys(order2).entries(array) 
       d = {foo: 1, bar: "b"},
       e = {foo: 1, bar: "b"},
       f = {foo: 2, bar: "b"};
-  test.deepEqual(nest.entries([a, b, c, d, e, f]), [{key: "2", values: [{key: "b", values: [f]}, {key: "a", values: [c]}]}, {key: "1", values: [{key: "b", values: [d, e]}, {key: "a", values: [a, b]}]}]);
-  test.deepEqual(nest.entries([f, e, d, c, b, a]), [{key: "2", values: [{key: "b", values: [f]}, {key: "a", values: [c]}]}, {key: "1", values: [{key: "b", values: [e, d]}, {key: "a", values: [b, a]}]}]);
+  test.deepEqual(nest.entries([a, b, c, d, e, f]), [{key: "2", children: [{key: "b", children: [f]}, {key: "a", children: [c]}]}, {key: "1", children: [{key: "b", children: [d, e]}, {key: "a", children: [a, b]}]}]);
+  test.deepEqual(nest.entries([f, e, d, c, b, a]), [{key: "2", children: [{key: "b", children: [f]}, {key: "a", children: [c]}]}, {key: "1", children: [{key: "b", children: [e, d]}, {key: "a", children: [b, a]}]}]);
   test.end();
 });
 
@@ -98,7 +98,7 @@ tape("nest.key(key).rollup(rollup).entries(array) aggregates values per key usin
   var a = {foo: 1},
       b = {foo: 1},
       c = {foo: 2};
-  test.deepEqual(collection.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).entries([a, b, c]), [{key: "1", values: 2}, {key: "2", values: 1}]);
+  test.deepEqual(collection.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).entries([a, b, c]), [{key: "1", value: 2}, {key: "2", value: 1}]);
   test.end();
 });
 
