@@ -1,6 +1,6 @@
 {
   "name": "d3-collection",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Handy data structures for elements keyed by string.",
   "keywords": [
     "d3",
