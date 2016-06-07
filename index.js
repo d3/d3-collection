@@ -1,4 +1,3 @@
-export {version} from "./build/package";
 export {default as nest} from "./src/nest";
 export {default as set} from "./src/set";
 export {default as map} from "./src/map";
