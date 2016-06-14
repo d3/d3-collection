@@ -4,6 +4,7 @@
   "description": "Handy data structures for elements keyed by string.",
   "keywords": [
     "d3",
+    "d3-module",
     "nest",
     "data",
     "map",
