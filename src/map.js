@@ -50,8 +50,11 @@ Map.prototype = map.prototype = {
   }
 };
 
-function map(object, f) {
+function map(object, f, g) {
   var map = new Map;
+
+  // Use Default g if unspecified
+  if(g == null) g = function(d) { return d }
 
   // Copy constructor.
   if (object instanceof Map) object.each(function(value, key) { map.set(key, value); });
@@ -62,8 +65,8 @@ function map(object, f) {
         n = object.length,
         o;
 
-    if (f == null) while (++i < n) map.set(i, object[i]);
-    else while (++i < n) map.set(f(o = object[i], i, object), o);
+    if (f == null) while (++i < n) map.set(i, g(o = object[i], i, object));
+    else while (++i < n) map.set(f(o = object[i], i, object), g(o, i, object));
   }
 
   // Convert object to map.
