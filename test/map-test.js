@@ -74,6 +74,11 @@ tape("map(array, f) creates a map by accessor", function(test) {
   test.end();
 });
 
+tape("map(array, null, g) creates a map by index and value accessor", function(test) {
+  test.deepEqual(collection.map([{field: "foo", value: 1}, {field: "bar", value: 2}], null, function(d) { return d.value; }).entries(),[{key: "0", value: 1}, {key: "1", value: 2}]);
+  test.end();
+});
+
 tape("map(array, f, g) creates a map by accessor and value accessor", function(test) {
   test.deepEqual(collection.map([{field: "foo", value: 1}, {field: "bar", value: 2}], function(d) { return d.field; }, function(d) { return d.value; }).entries(),[{key: "foo", value: 1}, {key: "bar", value: 2}]);
   test.deepEqual(collection.map([{field: "foo", value: 1}, {field: "bar", value: 2}], function(d) { return d.field; }, function(d, i, array) { return array[i].value; }).entries(), [{key: "foo", value: 1}, {key: "bar", value: 2}]);
