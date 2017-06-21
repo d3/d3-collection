@@ -254,7 +254,7 @@ Sorts leaf elements using the specified *comparator* function, such as [d3.ascen
 
 <a name="nest_rollup" href="#nest_rollup">#</a> <i>nest</i>.<b>rollup</b>(<i>function</i>) [<>](https://github.com/d3/d3-collection/blob/master/src/nest.js#L7 "Source")
 
-Specifies a rollup *function* to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in either the associative array returned by [*nest*.map](#nest_map) or [*nest*.object](#nest_object); for [*nest*.entries](#nest_entries), it replaces the leaf *entry*.values with *entry*.value.
+Specifies a rollup *function* to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in either the associative array returned by [*nest*.map](#nest_map) or [*nest*.object](#nest_object); for [*nest*.entries](#nest_entries), it replaces the leaf *entry*.values with *entry*.value. If a [leaf comparator](#nest_sortValues) is specified, the leaf elements are sorted prior to invoking the rollup function.
 
 <a name="nest_map" href="#nest_map">#</a> <i>nest</i>.<b>map</b>(<i>array</i>) [<>](https://github.com/d3/d3-collection/blob/master/src/nest.js#L50 "Source")
 

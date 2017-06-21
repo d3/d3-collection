@@ -101,6 +101,14 @@ tape("nest.key(key).rollup(rollup).entries(array) aggregates values per key usin
   test.end();
 });
 
+tape("nest.key(key).sortValues(order).rollup(rollup).entries(array) sorts values before rollup", function(test) {
+  var a = {foo: 1, bar: 1},
+      b = {foo: 1, bar: 2},
+      c = {foo: 2, bar: 3};
+  test.deepEqual(d3.nest().key(function(d) { return d.foo; }).sortValues(function(a, b) { return b.bar - a.bar; }).rollup(function(values) { return values[0].bar; }).entries([a, b, c]), [{key: "1", value: 2}, {key: "2", value: 3}]);
+  test.end();
+});
+
 tape("nest.map(array) returns the array of input values, in input order", function(test) {
   var nest = d3.nest();
   test.deepEqual(nest.map([1, 2, 3]), [1, 2, 3]);
