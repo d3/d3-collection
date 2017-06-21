@@ -1,25 +1,24 @@
 var tape = require("tape"),
-    collection = require("../"),
-    array = require("d3-array");
+    d3 = Object.assign({}, require("d3-array"), require("../"));
 
 tape("set() returns an empty set", function(test) {
-  var s = collection.set();
-  test.equal(s instanceof collection.set, true);
+  var s = d3.set();
+  test.equal(s instanceof d3.set, true);
   test.equal(s.constructor.name, "Set");
   test.deepEqual(s.values(), []);
   test.end();
 });
 
 tape("set(null) returns an empty set", function(test) {
-  var s = collection.set(null);
+  var s = d3.set(null);
   test.deepEqual(s.values(), []);
   test.end();
 });
 
 tape("set(array) adds array entries", function(test) {
-  var s = collection.set(["foo"]);
+  var s = d3.set(["foo"]);
   test.equal(s.has("foo"), true);
-  var s = collection.set(["foo", "bar"]);
+  var s = d3.set(["foo", "bar"]);
   test.equal(s.has("foo"), true);
   test.equal(s.has("bar"), true);
   test.end();
@@ -27,17 +26,17 @@ tape("set(array) adds array entries", function(test) {
 
 tape("set(array, f) observes the specified accessor function", function(test) {
   var name = function(d) { return d.name; };
-  var s = collection.set([{name: "foo"}], name);
+  var s = d3.set([{name: "foo"}], name);
   test.equal(s.has("foo"), true);
-  var s = collection.set([{name: "foo"}, {name: "bar"}], name);
+  var s = d3.set([{name: "foo"}, {name: "bar"}], name);
   test.equal(s.has("foo"), true);
   test.equal(s.has("bar"), true);
   test.end();
 });
 
 tape("set(set) copies the given set", function(test) {
-  var a = collection.set(["foo"]),
-      b = collection.set(a);
+  var a = d3.set(["foo"]),
+      b = d3.set(a);
   test.equal(b.has("foo"), true);
   test.equal(b.has("foo"), true);
   a.add("bar");
@@ -46,7 +45,7 @@ tape("set(set) copies the given set", function(test) {
 });
 
 tape("set.size() returns the number of distinct values", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.equal(s.size(), 0);
   s.add("foo");
   test.equal(s.size(), 1);
@@ -64,7 +63,7 @@ tape("set.size() returns the number of distinct values", function(test) {
 });
 
 tape("set.clear() removes all values", function(test) {
-  var s = collection.set().add("foo").add("bar").add("foo");
+  var s = d3.set().add("foo").add("bar").add("foo");
   test.equal(s.size(), 2);
   s.clear();
   test.equal(s.size(), 0);
@@ -73,7 +72,7 @@ tape("set.clear() removes all values", function(test) {
 });
 
 tape("set.empty() returns true only if the set is empty", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.equal(s.empty(), true);
   s.add("foo");
   test.equal(s.empty(), false);
@@ -91,7 +90,7 @@ tape("set.empty() returns true only if the set is empty", function(test) {
 });
 
 tape("set.each(callback) passes value, value and the set", function(test) {
-  var s = collection.set(["foo", "bar"]),
+  var s = d3.set(["foo", "bar"]),
       c = [];
   s.each(function(v0, v1, s) { c.push([v0, v1, s]); });
   c.sort();
@@ -100,7 +99,7 @@ tape("set.each(callback) passes value, value and the set", function(test) {
 });
 
 tape("set.each(callback) uses the global context", function(test) {
-  var s = collection.set(["foo", "bar"]),
+  var s = d3.set(["foo", "bar"]),
       c = [];
   s.each(function() { c.push(this); });
   test.strictEqual(c[0], global);
@@ -110,8 +109,8 @@ tape("set.each(callback) uses the global context", function(test) {
 });
 
 tape("set.each(callback) iterates in arbitrary order", function(test) {
-  var s1 = collection.set(["foo", "bar"]),
-      s2 = collection.set(["bar", "foo"]),
+  var s1 = d3.set(["foo", "bar"]),
+      s2 = d3.set(["bar", "foo"]),
       c1 = [],
       c2 = [];
   s1.each(function(v) { c1.push(v); });
@@ -123,13 +122,13 @@ tape("set.each(callback) iterates in arbitrary order", function(test) {
 });
 
 tape("set.values() returns an array of string values", function(test) {
-  var s = collection.set(["foo", "bar"]);
+  var s = d3.set(["foo", "bar"]);
   test.deepEqual(s.values().sort(), ["bar", "foo"]);
   test.end();
 });
 
 tape("set.values() empty sets have an empty values array", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.deepEqual(s.values(), []);
   s.add("foo");
   test.deepEqual(s.values(), ["foo"]);
@@ -139,28 +138,28 @@ tape("set.values() empty sets have an empty values array", function(test) {
 });
 
 tape("set.values() values are returned in arbitrary order", function(test) {
-  var s = collection.set(["foo", "bar"]);
-  test.deepEqual(s.values().sort(array.ascending), ["bar", "foo"]);
-  var s = collection.set(["bar", "foo"]);
-  test.deepEqual(s.values().sort(array.ascending), ["bar", "foo"]);
+  var s = d3.set(["foo", "bar"]);
+  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
+  var s = d3.set(["bar", "foo"]);
+  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
   test.end();
 });
 
 tape("set.values() properly unescapes prefixed keys", function(test) {
-  var s = collection.set(["__proto__", "$weird"]);
-  test.deepEqual(s.values().sort(array.ascending), ["$weird", "__proto__"]);
+  var s = d3.set(["__proto__", "$weird"]);
+  test.deepEqual(s.values().sort(d3.ascending), ["$weird", "__proto__"]);
   test.end();
 });
 
 tape("set.values() observes changes via add and remove", function(test) {
-  var s = collection.set(["foo", "bar"]);
-  test.deepEqual(s.values().sort(array.ascending), ["bar", "foo"]);
+  var s = d3.set(["foo", "bar"]);
+  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
   s.remove("foo");
   test.deepEqual(s.values(), ["bar"]);
   s.add("bar");
   test.deepEqual(s.values(), ["bar"]);
   s.add("foo");
-  test.deepEqual(s.values().sort(array.ascending), ["bar", "foo"]);
+  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
   s.remove("bar");
   test.deepEqual(s.values(), ["foo"]);
   s.remove("foo");
@@ -171,14 +170,14 @@ tape("set.values() observes changes via add and remove", function(test) {
 });
 
 tape("set.has(value) empty sets do not have object built-ins", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.equal(s.has("__proto__"), false);
   test.equal(s.has("hasOwnProperty"), false);
   test.end();
 });
 
 tape("set.has(value) coerces values to strings", function(test) {
-  var s = collection.set(["42", "null", "undefined"]);
+  var s = d3.set(["42", "null", "undefined"]);
   test.equal(s.has(42), true);
   test.equal(s.has(null), true);
   test.equal(s.has(undefined), true);
@@ -186,7 +185,7 @@ tape("set.has(value) coerces values to strings", function(test) {
 });
 
 tape("set.has(value) observes changes via add and remove", function(test) {
-  var s = collection.set(["foo"]);
+  var s = d3.set(["foo"]);
   test.equal(s.has("foo"), true);
   s.add("foo");
   test.equal(s.has("foo"), true);
@@ -198,13 +197,13 @@ tape("set.has(value) observes changes via add and remove", function(test) {
 });
 
 tape("set.has(value) returns undefined for missing values", function(test) {
-  var s = collection.set(["foo"]);
+  var s = d3.set(["foo"]);
   test.equal(s.has("bar"), false);
   test.end();
 });
 
 tape("set.add(value) returns the set", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.equal(s.add("foo"), s);
   test.equal(s.add(2), s);
   test.deepEqual(s.values().sort(), ["2", "foo"]);
@@ -212,19 +211,19 @@ tape("set.add(value) returns the set", function(test) {
 });
 
 tape("set.add(value) can add values using built-in names", function(test) {
-  var s = collection.set().add("__proto__");
+  var s = d3.set().add("__proto__");
   test.equal(s.has("__proto__"), true);
   test.end();
 });
 
 tape("set.add(value) can add values using zero-prefixed names", function(test) {
-  var s = collection.set().add("$weird");
+  var s = d3.set().add("$weird");
   test.equal(s.has("$weird"), true);
   test.end();
 });
 
 tape("set.add(value) coerces values to strings", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   s.add(42);
   test.equal(s.has(42), true);
   s.add(null);
@@ -236,7 +235,7 @@ tape("set.add(value) coerces values to strings", function(test) {
 });
 
 tape("set.add(value) can add null, undefined or empty string values", function(test) {
-  var s = collection.set().add("").add("null").add("undefined");
+  var s = d3.set().add("").add("null").add("undefined");
   test.equal(s.has(""), true);
   test.equal(s.has("null"), true);
   test.equal(s.has("undefined"), true);
@@ -244,13 +243,13 @@ tape("set.add(value) can add null, undefined or empty string values", function(t
 });
 
 tape("set.remove(value) returns true if the value was removed", function(test) {
-  var s = collection.set(["foo"]);
+  var s = d3.set(["foo"]);
   test.equal(s.remove("foo"), true);
   test.end();
 });
 
 tape("set.remove(value) returns false if the value is not an element", function(test) {
-  var s = collection.set();
+  var s = d3.set();
   test.equal(s.remove("foo"), false);
   test.end();
 });
