@@ -26,6 +26,7 @@
     "url": "https://github.com/d3/d3-collection.git"
   },
   "scripts": {
+    "prepare": "npm run prepublish",
     "pretest": "rm -rf build && mkdir build && rollup --banner \"$(preamble)\" -f umd -n d3 -o build/d3-collection.js -- index.js",
     "test": "tape 'test/**/*-test.js' && eslint index.js src",
     "prepublish": "npm run test && uglifyjs -b beautify=false,preamble=\"'$(preamble)'\" build/d3-collection.js -c -m -o build/d3-collection.min.js",
