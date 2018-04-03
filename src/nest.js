@@ -69,5 +69,9 @@ function createMap() {
 }
 
 function setMap(map, key, value) {
-  map.set(key, value);
+  if (Array.isArray(key)) {
+    key.forEach(function() { return map.set(key, value) });
+  } else {
+    map.set(key, value);
+  }
 }
