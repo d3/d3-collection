@@ -22,12 +22,18 @@ export default function() {
         values,
         result = createResult();
 
-    while (++i < n) {
-      if (values = valuesByKey.get(keyValue = key(value = array[i]) + "")) {
+    function pushKey(keyValue) {
+      if (values = valuesByKey.get(keyValue + "")) {
         values.push(value);
       } else {
         valuesByKey.set(keyValue, [value]);
       }
+    }
+
+    while (++i < n) {
+      keyValue = key(value = array[i]);
+      if (Array.isArray(keyValue)) keyValue.map(pushKey)
+      else pushKey(keyValue);
     }
 
     valuesByKey.each(function(values, key) {
@@ -69,9 +75,5 @@ function createMap() {
 }
 
 function setMap(map, key, value) {
-  if (Array.isArray(key)) {
-    key.forEach(function() { return map.set(key, value) });
-  } else {
-    map.set(key, value);
-  }
+  map.set(key, value);
 }

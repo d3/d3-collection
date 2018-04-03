@@ -42,6 +42,14 @@ tape("nest.key(key) coerces key values to strings", function(test) {
   test.end();
 });
 
+tape("nest.key(key) puts into mutiple collections when key returns an array", function(test) {
+  var nest = d3.nest().key(function(d) { return d.key }).sortKeys(d3.ascending),
+      a = {key: [1, 2]},
+      b = {key: 1};
+  test.deepEqual(nest.entries([a, b]), [{key: "1", values: [a, b]}, { key: "2", values: [a] }]);
+  test.end();
+});
+
 tape("nest.key(key1).key(key2).entries(array) returns entries for each distinct key set, with values in input order", function(test) {
   var nest = d3.nest().key(function(d) { return d.foo; }).sortKeys(d3.ascending).key(function(d) { return d.bar; }).sortKeys(d3.ascending),
       a = {foo: 1, bar: "a"},
