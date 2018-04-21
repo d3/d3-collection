@@ -248,6 +248,10 @@ var entries = d3.nest()
 
 Note that this only affects the result of [*nest*.entries](#nest_entries); the order of keys returned by [*nest*.map](#nest_map) and [*nest*.object](#nest_object) is always undefined, regardless of comparator.
 
+<a name="nest_factory" href="#nest_factory">#</a> <i>nest</i>.<b>factory</b>(<i>function</i>) [<>](https://github.com/d3/d3-collection/blob/master/src/nest.js#L8 "Source")
+
+Specifies the custom factory function to use when creating tree nodes.
+
 <a name="nest_sortValues" href="#nest_sortValues">#</a> <i>nest</i>.<b>sortValues</b>(<i>comparator</i>) [<>](https://github.com/d3/d3-collection/blob/master/src/nest.js#L6 "Source")
 
 Sorts leaf elements using the specified *comparator* function, such as [d3.ascending](https://github.com/d3/d3-array#ascending) or [d3.descending](https://github.com/d3/d3-array#descending). This is roughly equivalent to sorting the input array before applying the nest operator; however it is typically more efficient as the size of each group is smaller. If no value comparator is specified, elements will be returned in the order they appeared in the input array. This applies to [*nest*.map](#nest_map), [*nest*.entries](#nest_entries) and [*nest*.object](#nest_object).

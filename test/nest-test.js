@@ -170,3 +170,12 @@ tape("nest.key(key).rollup(rollup).map(array) aggregates values per key using th
   test.deepEqual(d3.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).map([a, b, c]), d3.map({1: 2, 2: 1}));
   test.end();
 });
+
+tape("nest.factory(f).entries(array) returns entries created by custom factory", function(test) {
+  var nest = d3.nest().factory(function(k, v) { return {k:k, v:v}; }).key(function(d) { return d.foo; }),
+    a = {foo: 1},
+    b = {foo: 1},
+    c = {foo: 2};
+  test.deepEqual(nest.entries([a, b, c]), [{k: "1", v: [a, b]}, {k: "2", v: [c]}]);
+  test.end();
+});
