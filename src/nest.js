@@ -46,7 +46,10 @@ export default function() {
     else {
       array = [];
       map.each(function (v, k) {
-        array.push({ [keyField]: k, [valuesField]: entries(v, depth) });
+        var elem = {};
+        elem[keyField] = k;
+        elem[valuesField] = entries(v, depth);
+        array.push(elem);
       });
     }
     return sortKey != null ? array.sort(function(a, b) { return sortKey(a.key, b.key); }) : array;
