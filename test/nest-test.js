@@ -170,3 +170,13 @@ tape("nest.key(key).rollup(rollup).map(array) aggregates values per key using th
   test.deepEqual(d3.nest().key(function(d) { return d.foo; }).rollup(function(values) { return values.length; }).map([a, b, c]), d3.map({1: 2, 2: 1}));
   test.end();
 });
+
+
+tape("nest.keyField(fldA).valuesField(fldB).entries(array) returns entries with custom key and values fields", function(test) {
+  var nest = d3.nest().keyField('mykey').valuesField('myvalues').key(function(d) { return d.foo; }),
+    a = {foo: 1},
+    b = {foo: 1},
+    c = {foo: 2};
+  test.deepEqual(nest.entries([a, b, c]), [{mykey: "1", myvalues: [a, b]}, {mykey: "2", myvalues: [c]}]);
+  test.end();
+});

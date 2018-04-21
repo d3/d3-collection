@@ -5,6 +5,8 @@ export default function() {
       sortKeys = [],
       sortValues,
       rollup,
+      keyField = 'key',
+      valuesField = 'values',
       nest;
 
   function apply(array, depth, createResult, setResult) {
@@ -41,7 +43,15 @@ export default function() {
     if (++depth > keys.length) return map;
     var array, sortKey = sortKeys[depth - 1];
     if (rollup != null && depth >= keys.length) array = map.entries();
-    else array = [], map.each(function(v, k) { array.push({key: k, values: entries(v, depth)}); });
+    else {
+      array = [];
+      map.each(function (v, k) {
+        var elem = {};
+        elem[keyField] = k;
+        elem[valuesField] = entries(v, depth);
+        array.push(elem);
+      });
+    }
     return sortKey != null ? array.sort(function(a, b) { return sortKey(a.key, b.key); }) : array;
   }
 
@@ -52,7 +62,9 @@ export default function() {
     key: function(d) { keys.push(d); return nest; },
     sortKeys: function(order) { sortKeys[keys.length - 1] = order; return nest; },
     sortValues: function(order) { sortValues = order; return nest; },
-    rollup: function(f) { rollup = f; return nest; }
+    rollup: function(f) { rollup = f; return nest; },
+    keyField: function(fieldName) { keyField = fieldName; return nest; },
+    valuesField: function(fieldName) { valuesField = fieldName; return nest; },
   };
 }
 
