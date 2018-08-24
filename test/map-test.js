@@ -16,34 +16,34 @@ tape("map(null) returns an empty map", function(test) {
 });
 
 tape("map(object) copies enumerable keys", function(test) {
-  var m = d3.map({foo: 42});
-  test.equal(m.has("foo"), true);
-  test.equal(m.get("foo"), 42);
-  var m = d3.map(Object.create(null, {foo: {value: 42, enumerable: true}}));
-  test.equal(m.has("foo"), true);
-  test.equal(m.get("foo"), 42);
+  var m1 = d3.map({foo: 42});
+  test.equal(m1.has("foo"), true);
+  test.equal(m1.get("foo"), 42);
+  var m2 = d3.map(Object.create(null, {foo: {value: 42, enumerable: true}}));
+  test.equal(m2.has("foo"), true);
+  test.equal(m2.get("foo"), 42);
   test.end();
 });
 
 tape("map(object) copies inherited keys", function(test) {
   function Foo() {}
   Foo.prototype.foo = 42;
-  var m = d3.map(Object.create({foo: 42}));
-  test.equal(m.has("foo"), true);
-  test.equal(m.get("foo"), 42);
-  var m = d3.map(new Foo());
-  test.equal(m.has("foo"), true);
-  test.equal(m.get("foo"), 42);
+  var m1 = d3.map(Object.create({foo: 42}));
+  test.equal(m1.has("foo"), true);
+  test.equal(m1.get("foo"), 42);
+  var m2 = d3.map(new Foo());
+  test.equal(m2.has("foo"), true);
+  test.equal(m2.get("foo"), 42);
   test.end();
 });
 
 tape("map(object) does not copy non-enumerable keys", function(test) {
-  var m = d3.map({__proto__: 42}); // because __proto__ isn't enumerable
-  test.equal(m.has("__proto__"), false);
-  test.equal(m.get("__proto__"), undefined);
-  var m = d3.map(Object.create(null, {foo: {value: 42, enumerable: false}}));
-  test.equal(m.has("foo"), false);
-  test.equal(m.get("foo"), undefined);
+  var m1 = d3.map({__proto__: 42}); // because __proto__ isn't enumerable
+  test.equal(m1.has("__proto__"), false);
+  test.equal(m1.get("__proto__"), undefined);
+  var m2 = d3.map(Object.create(null, {foo: {value: 42, enumerable: false}}));
+  test.equal(m2.has("foo"), false);
+  test.equal(m2.get("foo"), undefined);
   test.end();
 });
 
@@ -63,7 +63,8 @@ tape("map(array) creates a map by index", function(test) {
 });
 
 tape("map(array) indexes missing elements in sparse collection", function(test) {
-  test.deepEqual(d3.map(["foo", , "bar"]).entries(), [{key: "0", value: "foo"}, {key: "1", value: undefined}, {key: "2", value: "bar"}]);
+  // eslint-disable-next-line no-sparse-arrays
+  test.deepEqual(d3.map(["foo",, "bar"]).entries(), [{key: "0", value: "foo"}, {key: "1", value: undefined}, {key: "2", value: "bar"}]);
   test.end();
 });
 
@@ -186,10 +187,10 @@ tape("map.entries() empty maps have an empty entries array", function(test) {
 });
 
 tape("map.entries() entries are returned in arbitrary order", function(test) {
-  var m = d3.map({foo: 1, bar: "42"});
-  test.deepEqual(m.entries().sort(ascendingByKey), [{key: "bar", value: "42"}, {key: "foo", value: 1}]);
-  var m = d3.map({bar: "42", foo: 1});
-  test.deepEqual(m.entries().sort(ascendingByKey), [{key: "bar", value: "42"}, {key: "foo", value: 1}]);
+  var m1 = d3.map({foo: 1, bar: "42"});
+  test.deepEqual(m1.entries().sort(ascendingByKey), [{key: "bar", value: "42"}, {key: "foo", value: 1}]);
+  var m2 = d3.map({bar: "42", foo: 1});
+  test.deepEqual(m2.entries().sort(ascendingByKey), [{key: "bar", value: "42"}, {key: "foo", value: 1}]);
   test.end();
 });
 

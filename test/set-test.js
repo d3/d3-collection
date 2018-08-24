@@ -16,21 +16,21 @@ tape("set(null) returns an empty set", function(test) {
 });
 
 tape("set(array) adds array entries", function(test) {
-  var s = d3.set(["foo"]);
-  test.equal(s.has("foo"), true);
-  var s = d3.set(["foo", "bar"]);
-  test.equal(s.has("foo"), true);
-  test.equal(s.has("bar"), true);
+  var s1 = d3.set(["foo"]);
+  test.equal(s1.has("foo"), true);
+  var s2 = d3.set(["foo", "bar"]);
+  test.equal(s2.has("foo"), true);
+  test.equal(s2.has("bar"), true);
   test.end();
 });
 
 tape("set(array, f) observes the specified accessor function", function(test) {
   var name = function(d) { return d.name; };
-  var s = d3.set([{name: "foo"}], name);
-  test.equal(s.has("foo"), true);
-  var s = d3.set([{name: "foo"}, {name: "bar"}], name);
-  test.equal(s.has("foo"), true);
-  test.equal(s.has("bar"), true);
+  var s1 = d3.set([{name: "foo"}], name);
+  test.equal(s1.has("foo"), true);
+  var s2 = d3.set([{name: "foo"}, {name: "bar"}], name);
+  test.equal(s2.has("foo"), true);
+  test.equal(s2.has("bar"), true);
   test.end();
 });
 
@@ -138,10 +138,10 @@ tape("set.values() empty sets have an empty values array", function(test) {
 });
 
 tape("set.values() values are returned in arbitrary order", function(test) {
-  var s = d3.set(["foo", "bar"]);
-  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
-  var s = d3.set(["bar", "foo"]);
-  test.deepEqual(s.values().sort(d3.ascending), ["bar", "foo"]);
+  var s1 = d3.set(["foo", "bar"]);
+  test.deepEqual(s1.values().sort(d3.ascending), ["bar", "foo"]);
+  var s2 = d3.set(["bar", "foo"]);
+  test.deepEqual(s2.values().sort(d3.ascending), ["bar", "foo"]);
   test.end();
 });
 
