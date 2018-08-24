@@ -4,7 +4,6 @@ var tape = require("tape"),
 tape("set() returns an empty set", function(test) {
   var s = d3.set();
   test.equal(s instanceof d3.set, true);
-  test.equal(s.constructor.name, "Set");
   test.deepEqual(s.values(), []);
   test.end();
 });
