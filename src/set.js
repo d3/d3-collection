@@ -1,4 +1,4 @@
-import {default as map, prefix} from "./map";
+import map, {prefix} from "./map";
 
 function Set() {}
 
