@@ -1,5 +1,9 @@
 # d3-collection
 
+**Deprecation notice**: Use JavaScript’s built-in [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map), [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map) and [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) classes instead of d3-collection’s corresponding methods. Use [d3-array](https://github.com/d3/d3-array)’s [group](https://github.com/d3/d3-array/blob/master/README.md#group) and [rollup](https://github.com/d3/d3-array/blob/master/README.md#rollup) instead of d3-collection’s nest.
+
+---
+
 Handy data structures for elements keyed by string.
 
 ## Installing
@@ -16,8 +20,6 @@ var map = d3.map()
 
 </script>
 ```
-
-[Try d3-collection in your browser.](https://tonicdev.com/npm/d3-collection)
 
 ## API Reference
 
